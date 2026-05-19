@@ -16,6 +16,9 @@ alias routes='ip -br -c r'
 #Bash
 alias bat='/usr/bin/batcat'
 
+#Tmux
+alias tmux='tmux -f ~/imports/.tmux.conf'
+
 #Functions
 cd() { builtin cd "$@" && ls; }
 
