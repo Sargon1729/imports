@@ -16,13 +16,13 @@ alias ips='ip -br -c a'
 alias macs='ip -br -c l'
 alias routes='ip -br -c r'
 
-#Bash
-alias bat='/usr/bin/batcat'
+#Vim
+alias vim='vim -u $HOME/.vimrc'
 
 #Tmux
 TERM=xterm-256color
 if [ -f /usr/bin/tmux ]; then
-	tmux source-file ~/imports/tmux.conf
+	tmux source-file $HOME/imports/.tmux.conf
 fi
 
 #Functions
