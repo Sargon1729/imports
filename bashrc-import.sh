@@ -20,7 +20,10 @@ alias routes='ip -br -c r'
 alias bat='/usr/bin/batcat'
 
 #Tmux
-alias tmux='tmux -f ~/imports/.tmux.conf'
+TERM=xterm-256color
+if [ -f /usr/bin/tmux ]; then
+	tmux source-file ~/imports/tmux.conf
+fi
 
 #Functions
 cd() { builtin cd "$@" && ls; }
