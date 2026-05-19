@@ -2,8 +2,11 @@
 #Aliases
 alias ls='ls -laFh --color=auto'
 alias alias-test='echo "Alias test successful!"'
+
 alias enabled='systemctl list-unit-files --type=service --state=enabled'
+alias timers='systemctl list-timers --all'
 alias services='systemctl list-units --type=service'
+
 alias size='du -hs'
 alias rm='rm -i'
 alias less='less -R'
