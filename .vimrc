@@ -9,11 +9,3 @@ colorscheme jellybeans
 "show line numbers
 set number
 
-
-if !exists('g:lightline')
-  let g:lightline = {}
-endif
-if !exists('g:lightline.component')
-  let g:lightline.component = {}
-endif
-let g:lightline.component.filename='%F'
