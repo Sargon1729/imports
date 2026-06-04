@@ -72,7 +72,7 @@ restart() { if sudo systemctl restart "$1"; then
             else
                 write_error "Something went wrong restarting process $1"
             fi
-             systemctl status "1";
+             systemctl status "$1";
            }
 
 #Scripts
