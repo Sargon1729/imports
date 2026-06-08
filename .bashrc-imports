@@ -51,7 +51,7 @@ alias size='du -hs'
 alias rm='rm -i'
 alias less='less -R'
 
-alias catjson='pyton3 -m json.tool'
+alias catjson='python3 -m json.tool'
 
 #Networking
 alias ips='ip -br -c a'
