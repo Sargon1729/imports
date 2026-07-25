@@ -53,6 +53,8 @@ alias less='less -R'
 
 alias catjson='python3 -m json.tool'
 
+alias sourcebash='source $HOME/.bashrc'
+
 #Networking
 alias ips='ip -br -c a'
 alias macs='ip -br -c l'
@@ -77,6 +79,15 @@ restart() { if sudo systemctl restart "$1"; then
             fi
              systemctl status "$1";
            }
+
+backup (){
+    newname=$1.`date +%Y-%m-%d.%H%M%S.bak`;
+    if cp -p $1 $newname; then
+        write_success "Created backup of $1, have a nice day"
+    else
+        write_error "Could not create backup of $1"
+    fi
+}
 
 #Scripts
 alias ifdocker='sudo bash $HOME/dotfiles/docker-interfaces.sh'
