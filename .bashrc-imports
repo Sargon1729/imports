@@ -90,7 +90,7 @@ backup (){
 }
 
 #Scripts
-alias ifdocker='sudo bash $HOME/dotfiles/docker-interfaces.sh'
+alias ifdocker='sudo bash $HOME/imports/docker-interfaces.sh'
 
 #PS1
 if [ "$EUID" -eq 0 ]; then
