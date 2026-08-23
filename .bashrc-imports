@@ -55,7 +55,7 @@ alias enabled='systemctl list-unit-files --type=service --state=enabled'
 alias timers='systemctl list-timers --all'
 alias services='systemctl list-units --type=service --all'
 alias status='systemctl status'
-alias dockerup='sudo docker compose up -d && sudo docker compose logs --follow"
+alias dockerup='sudo docker compose up -d && sudo docker compose logs --follow'
 
 alias size='du -hs'
 alias rm='rm -i'
