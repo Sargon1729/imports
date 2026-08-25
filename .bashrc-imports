@@ -46,6 +46,7 @@ alias enabled='systemctl list-unit-files --type=service --state=enabled'
 alias timers='systemctl list-timers --all'
 alias services='systemctl list-units --type=service --all'
 alias status='systemctl status'
+alias listen='ss -l -tu -p'
 
 alias size='du -hs'
 alias rm='rm -i'
