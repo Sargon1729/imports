@@ -9,3 +9,5 @@ colorscheme jellybeans
 "show line numbers
 set number
 
+"show collums
+set ruler
