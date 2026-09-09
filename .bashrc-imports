@@ -57,7 +57,7 @@ alias services='systemctl list-units --type=service --all'
 alias status='systemctl status'
 alias listen='sudo ss -l -tu -p'
 alias dockerup='sudo docker compose up -d && sudo docker compose logs --follow'
-
+alias pub='curl https://api.ipify.org'
 
 alias size='du -hs'
 alias rm='rm -i'
