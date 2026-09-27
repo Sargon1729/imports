@@ -78,7 +78,7 @@ alias vim='vim -u $HOME/imports/.vimrc'
 #Tmux
 TERM=xterm-256color
 if [ -f /usr/bin/tmux ]; then
-	tmux source-file $HOME/imports/.tmux.conf
+	tmux source-file "$HOME/imports/.tmux.conf"
 fi
 
 #Functions
@@ -93,8 +93,8 @@ restart() { if sudo systemctl restart "$1"; then
            }
 
 backup (){
-    newname=$1.`date +%Y-%m-%d.%H%M%S.bak`;
-    if cp -p $1 $newname; then
+    newname=$1.$(date +%Y-%m-%d.%H%M%S.bak);
+    if cp -p "$1" "$newname"; then
         log_success "Created backup of $1, have a nice day"
     else
         log_error "Could not create backup of $1"
@@ -102,10 +102,10 @@ backup (){
 }
 
 docker-prune () {
-	read -p "Remove all stopped containers? (y/n): " prompt
+	read -r -p "Remove all stopped containers? (y/n): " prompt
         if [[ $prompt = "y" ]]; then
 		for i in $(docker ps -a --filter "status=exited" -q); do
-			docker rm $i
+			docker rm "$i"
        		done
 		rc=$?
 		if [[ $rc = 0 ]]; then
@@ -123,11 +123,11 @@ docker-prune () {
 }
 
 docker-purge () {
-	read -p "Stop and remove all stopped containers? (y/n): " prompt
+	read -r -p "Stop and remove all stopped containers? (y/n): " prompt
         if [[ $prompt = "y" ]]; then
 		for i in $(docker ps -a -q); do
-			docker stop $i
-			docker rm $i
+			docker stop "$i"
+			docker rm "$i"
        		done
 		rc=$?
 		if [[ $rc = 0 ]]; then
