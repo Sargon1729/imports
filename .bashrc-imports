@@ -101,6 +101,50 @@ backup (){
     fi
 }
 
+docker-prune () {
+	read -p "Remove all stopped containers? (y/n): " prompt
+        if [[ $prompt = "y" ]]; then
+		for i in $(docker ps -a --filter "status=exited" -q); do
+			docker rm $i
+       		done
+		rc=$?
+		if [[ $rc = 0 ]]; then
+			log_success "Removed all stopped containers"
+		else
+			write_error "Something went wrong when removing containers"
+		fi
+
+	elif [[ $prompt = "n" ]]; then
+		log_info "No changes will be made. Exiting"
+
+	else
+		log_warn "No confirmation received. No changes will be made. Exiting"
+        fi
+}
+
+docker-purge () {
+	read -p "Stop and remove all stopped containers? (y/n): " prompt
+        if [[ $prompt = "y" ]]; then
+		for i in $(docker ps -a -q); do
+			docker stop $i
+			docker rm $i
+       		done
+		rc=$?
+		if [[ $rc = 0 ]]; then
+			log_success "Stopped and removed all stopped containers"
+		else
+			write_error "Something went wrong when removing containers"
+		fi
+
+	elif [[ $prompt = "n" ]]; then
+		log_info "No changes will be made. Exiting"
+
+	else
+		log_warn "No confirmation received. No changes will be made. Exiting"
+        fi
+}
+
+
 #Scripts
 alias ifdocker='sudo bash $HOME/imports/docker-interfaces.sh'
 
