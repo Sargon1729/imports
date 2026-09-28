@@ -104,23 +104,28 @@ backup (){
 docker-prune () {
 	read -r -p "Remove all stopped containers? (y/n): " prompt
         if [[ $prompt = "y" ]]; then
-		for i in $(docker ps -a --filter "status=exited" -q); do
-			docker rm "$i"
-       		done
-		rc=$?
-		if [[ $rc = 0 ]]; then
-			log_success "Removed all stopped containers"
-		else
-			write_error "Something went wrong when removing containers"
-		fi
+        #Check if output is zero length
+            if [[ -z $(docker ps -a --filter "status=exited" -q]]; then
+                exit 0
+                log_info "No containers to prune"
+            else
+                for i in $(docker ps -a --filter "status=exited" -q); do
+                    docker rm "$i"
+                    done
+                rc=$?
+                if [[ $rc = 0 ]]; then
+                    log_success "Removed all stopped containers"
+                else
+                    write_error "Something went wrong when removing containers"
+                fi
 
-	elif [[ $prompt = "n" ]]; then
-		log_info "No changes will be made. Exiting"
+        elif [[ $prompt = "n" ]]; then
+            log_info "No changes will be made. Exiting"
 
-	else
-		log_warn "No confirmation received. No changes will be made. Exiting"
+        else
+            log_warn "No confirmation received. No changes will be made. Exiting"
         fi
-}
+    }
 
 docker-purge () {
 	read -r -p "Stop and remove all stopped containers? (y/n): " prompt
