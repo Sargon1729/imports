@@ -129,24 +129,29 @@ docker-prune () {
     }
 
 docker-purge () {
-	read -r -p "Stop and remove all stopped containers? (y/n): " prompt
+	read -r -p "[=== WARNING ===] STOP and REMOVE all running containers? (y/n): " prompt
         if [[ $prompt = "y" ]]; then
-		for i in $(docker ps -a -q); do
-			docker stop "$i"
-			docker rm "$i"
-       		done
-		rc=$?
-		if [[ $rc = 0 ]]; then
-			log_success "Stopped and removed all stopped containers"
-		else
-			write_error "Something went wrong when removing containers"
-		fi
+            if [[ -z $(docker ps -a -q)  ]]; then
+                    log_info "No containers to prune"
+                    return
+            else
+                for i in $(docker ps -a -q); do
+                    docker stop "$i"
+                    docker rm "$i"
+                done
+                rc=$?
+                if [[ $rc = 0 ]]; then
+                    log_success "Stopped and removed all stopped containers"
+                else
+                    write_error "Something went wrong when removing containers"
+                fi
+            fi
 
-	elif [[ $prompt = "n" ]]; then
-		log_info "No changes will be made. Exiting"
+	    elif [[ $prompt = "n" ]]; then
+		    log_info "No changes will be made. Exiting"
 
-	else
-		log_warn "No confirmation received. No changes will be made. Exiting"
+	    else
+		    log_warn "No confirmation received. No changes will be made. Exiting"
         fi
 }
 
