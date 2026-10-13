@@ -100,12 +100,26 @@ restart() { if sudo systemctl restart "$1"; then
            }
 
 backup (){
-    newname=$1.$(date +%Y-%m-%d.%H%M%S.bak);
-    if cp -pr "$1" "$newname"; then
-        log_success "Created backup of $1, have a nice day"
+    #check if $1 is a direcroty or file
+    if [[ -d $1 ]]; then
+        dir=${1%/} # this will strip the trailing slash
+        newname="$dir.$(date +%Y-%m-%d.%H%M%S.bak)"
+        if tar -zcvf $newname.tar $dir; then
+          log_success "Created backup of $1, have a nice day"
+        else
+            log_error "Could not create backup of $1"
+        fi
     else
-        log_error "Could not create backup of $1"
+        # if it's a file
+        newname=$1.$(date +%Y-%m-%d.%H%M%S.bak);
+        if cp -pr "$1" "$newname"; then
+            log_success "Created backup of $1, have a nice day"
+        else
+            log_error "Could not create backup of $1"
+        fi
     fi
+
+
 }
 
 docker-prune () {
@@ -206,8 +220,6 @@ docker-logs () {
    docker compose logs --follow
 }
 
-#Scripts
-alias ifdocker='sudo bash $HOME/imports/docker-interfaces.sh'
 
 ###################################################################################################
 #|Variables                                                                                       |
