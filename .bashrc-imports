@@ -92,6 +92,9 @@ fi
 
 cd() { builtin cd "$@" && ls; }
 
+mygroups() { id | tr ',' '\n'; }
+
+
 restart() { if sudo systemctl restart "$1"; then
                 log_success "Process $1 restarted successfully"
             else
